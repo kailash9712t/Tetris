@@ -1,6 +1,5 @@
 import express from 'express';
 import {verifyJwt} from '../Middleware/VerifyJwt.js';
-import {utils} from '../Controller/allController.js';
 import {Utils} from '../Controller/AllControllers.js';
 import {GenerateJwtToken} from '../Controller/GenrateToken.js';
 import multer, { memoryStorage } from 'multer';
