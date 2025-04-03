@@ -1,0 +1,35 @@
+import express from 'express';
+import {verifyJwt} from '../Middleware/VerifyJwt.js';
+import {utils} from '../Controller/allController.js';
+import {Utils} from '../Controller/AllControllers.js';
+import {GenerateJwtToken} from '../Controller/GenrateToken.js';
+import multer, { memoryStorage } from 'multer';
+
+const upload = multer({storage : memoryStorage()});
+const router = express.Router();
+
+// router.route('/Login').post(utils.Login);
+// router.route('/FindUser').get(verifyJwt,utils.CheckUserID);
+// router.route('/Register').post(upload.single('file'),utils.Register);
+// router.route('/StoreChats').patch(verifyJwt,utils.HelperStoreChats);
+// router.route('/UpdateCurrentClientId').patch(verifyJwt,utils.UpdateCurrentClientId);
+// router.route('/GetChatReference').get(verifyJwt,utils.GetChatReference);
+// router.route('/UpdateChatReference').patch(verifyJwt,utils.InitialPhaseOfChat);
+// router.route('/GetUserPhoto').get(verifyJwt,utils.GetUserPhoto);
+// router.route('/GetChats').get(verifyJwt, utils.GetChats);
+// router.route('/SearchUsername').get(verifyJwt , utils.SearchUser);
+router.route('/GenerateJwtToken').get(GenerateJwtToken);
+router.route('/StoreChats').post(Utils.HelperStoreChats);
+router.route('/AddImage').post(upload.single('file'),verifyJwt,Utils.AddImage);
+router.route('/UpdateChatReference').patch(Utils.InitialPhaseOfChat);
+router.route('/GetChatReference').get(Utils.GetChatReference);
+router.route('/UpdateCurrentClientId').patch(Utils.UpdateCurrentClientId);
+router.route('/Register').post(upload.single('file'),Utils.Register);
+router.route('/Check').post(Utils.HandleMutipart);
+router.route('/GetUserPhoto').get(verifyJwt,Utils.GetUserPhoto);
+router.route('/SearchUser').get(Utils.SearchUser);
+router.route('/CheckUserID').get(Utils.CheckUserID);
+router.route('/Login').post(Utils.Login);
+router.route('/GetChats').get(Utils.GetChats);
+router.route('/GetClientId').get(Utils.GetCurrentClientID);
+export {router}; 
