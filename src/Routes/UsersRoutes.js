@@ -17,6 +17,7 @@ const router = express.Router();
 // router.route('/GetUserPhoto').get(verifyJwt,utils.GetUserPhoto);
 // router.route('/GetChats').get(verifyJwt, utils.GetChats);
 // router.route('/SearchUsername').get(verifyJwt , utils.SearchUser);
+router.route('/handle').get(Utils.HomeRoute);
 router.route('/GenerateJwtToken').get(GenerateJwtToken);
 router.route('/StoreChats').post(Utils.HelperStoreChats);
 router.route('/AddImage').post(upload.single('file'),verifyJwt,Utils.AddImage);
