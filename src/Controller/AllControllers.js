@@ -38,6 +38,10 @@ const HashOperation = {
 
 // all endpoint routes
 const Utils = {
+    HomeRoute: (req,res) => {
+        console.log("check");
+        res.send("This is Home route");
+    },
     GenerateRandom: (length) => {
         console.log(crypto.randomBytes(Math.ceil(length / 2)));
         return crypto.randomBytes(Math.ceil(length / 2)).toString('hex');

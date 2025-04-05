@@ -17,4 +17,5 @@ SetUpServer(io);
 server.listen(process.env.PORT, () => {
     console.log("Web Socket Connected ... !");
     console.log("Express Server is running ... !");
+    console.log(process.env.PORT);
 })
