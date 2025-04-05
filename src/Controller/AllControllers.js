@@ -2,8 +2,10 @@ import MongoClient from '../Model/ConnectMongo.js';
 import IsInvalid from '../services/RequestDataValidation.js';
 import cloudinary from '../Model/ConnectCloudinery.js';
 import crypto from 'crypto';
+import Listner from '../Listner/RealTimeChatReference.js';
 import bcrypt from 'bcrypt';
 const db = await MongoClient();
+await Listner.ChatReference();
 // for hash opertions 
 const HashOperation = {
     GenerateHash: (res, plainPassword) => {
@@ -365,22 +367,25 @@ const Utils = {
     }
 }
 
-//websocket client to send updated data
+// // websocket client to send updated data
 // import client from 'socket.io-client';
 // //realtime updates
 // const listner = {
-//     RealTimeChatReference: () => {
+//     RealTimeChatReference: async () => {
 //         const io = client.connect("http://localhost:8080");
 //         io.on("connect", () => {
 //             console.log("Listener connected to web socket");
 //         });
-
+//         if(!db){
+//             console.log("DB is not initialize !");
+//             db = await MongoClient();
+//         }
 //         const collection = db.collection('Default');
 //         const watch = collection.watch([], { fullDocument: "updateLookup" });
 
 //         watch.on("change", async (change) => {
 
-//             // Extract relevant data from the change object
+//             // data from updated object
 //             const ClientId = change.fullDocument.currentClientId;
 //             const UpdateObject = change.updateDescription ? change.updateDescription.updatedFields : null;
 
@@ -392,7 +397,7 @@ const Utils = {
 //                 Object: UpdateObject
 //             };
 
-//             // Emit the change details to the WebSocket clients
+//             //Emit change to web socket
 //             if (UpdateObject != null && typeof UpdateObject == "object") {
 //                 console.log("Data Send to Socket");
 //                 await io.emit("RealTimeChatReference", data);
