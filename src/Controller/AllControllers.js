@@ -366,42 +366,42 @@ const Utils = {
 }
 
 //websocket client to send updated data
-import client from 'socket.io-client';
-//realtime updates
-const listner = {
-    RealTimeChatReference: () => {
-        const io = client.connect("http://localhost:8080");
-        io.on("connect", () => {
-            console.log("Listener connected to web socket");
-        });
+// import client from 'socket.io-client';
+// //realtime updates
+// const listner = {
+//     RealTimeChatReference: () => {
+//         const io = client.connect("http://localhost:8080");
+//         io.on("connect", () => {
+//             console.log("Listener connected to web socket");
+//         });
 
-        const collection = db.collection('Default');
-        const watch = collection.watch([], { fullDocument: "updateLookup" });
+//         const collection = db.collection('Default');
+//         const watch = collection.watch([], { fullDocument: "updateLookup" });
 
-        watch.on("change", async (change) => {
+//         watch.on("change", async (change) => {
 
-            // Extract relevant data from the change object
-            const ClientId = change.fullDocument.currentClientId;
-            const UpdateObject = change.updateDescription ? change.updateDescription.updatedFields : null;
+//             // Extract relevant data from the change object
+//             const ClientId = change.fullDocument.currentClientId;
+//             const UpdateObject = change.updateDescription ? change.updateDescription.updatedFields : null;
 
-            console.log("New changes")
-            console.log("Client ID: -", ClientId);
-            console.log("Update Object: -", UpdateObject);
-            const data = {
-                ClientID: ClientId,
-                Object: UpdateObject
-            };
+//             console.log("New changes")
+//             console.log("Client ID: -", ClientId);
+//             console.log("Update Object: -", UpdateObject);
+//             const data = {
+//                 ClientID: ClientId,
+//                 Object: UpdateObject
+//             };
 
-            // Emit the change details to the WebSocket clients
-            if (UpdateObject != null && typeof UpdateObject == "object") {
-                console.log("Data Send to Socket");
-                await io.emit("RealTimeChatReference", data);
-            }
-        });
-    }
+//             // Emit the change details to the WebSocket clients
+//             if (UpdateObject != null && typeof UpdateObject == "object") {
+//                 console.log("Data Send to Socket");
+//                 await io.emit("RealTimeChatReference", data);
+//             }
+//         });
+//     }
 
-}
-listner.RealTimeChatReference();
+// }
+// listner.RealTimeChatReference();
 
 
 export { Utils };
